@@ -1,6 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
-import { Films } from './components/Films.js';
+import Films from './components/Films.js';
 import Planets from './components/Planets.js';
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 
