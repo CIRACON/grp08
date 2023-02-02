@@ -1,26 +1,18 @@
 
 import React, { useState, useEffect } from 'react';
 import './Films.css';
+import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 
 const Film = function (props) {
     return (
         <>
-            <h2>{props.selected.title}</h2>
+            <h2>{props.film.title}</h2>
             <div className='filmInfo'>
-                <span>Director: {props.selected.director}</span>
-                <span>Release Date: {props.selected.release_date}</span>
+                <span>Director: {props.film.director}</span>
+                <span>Release Date: {props.film.release_date}</span>
             </div>
         </>
     )
-}
-
-const ConditionalFilm = function (props) {
-    if (props.selected === null) {
-        return <></>;
-    }
-    else {
-        return <Film selected={props.selected} />;
-    }
 }
 
 export default function Films() {
@@ -33,12 +25,8 @@ export default function Films() {
             .then(res => res.json())
             .then(res => res.results);
         setFilms(films);
-        //console.log(films[0])
     }
 
-    const isSelected = function (film) {
-        return (selected != null && selected === film);
-    }
 
     useEffect(() => {
         fetchFilms();
@@ -47,14 +35,10 @@ export default function Films() {
     return (
         <>
             <h1>Star Wars Films</h1>
-            <ul>
-                {films.map((film, key) => <li key={key}
-                    onClick={() => setSelected(film)}
-                    className={isSelected(film) ? 'selected' : ''}>{JSON.stringify(film.title)}</li>)}
-            </ul>
-            {/* <pre>{JSON.stringify(films[0])}</pre> */}
-            <br />
-            <ConditionalFilm selected={selected} />
+            {films.map((film, key) => <Link key={key} to='1'>{film.title}</Link>)}
+            <Routes>
+                {films.map((film, key) => <Route key={key} path='1' element={<Film film={film} />} />)}
+            </Routes>
         </>
     );
 }

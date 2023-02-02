@@ -14,8 +14,8 @@ function App() {
           <Link to="/planets">Planets</Link>&nbsp;
         </nav>
         <Routes>
-          <Route path='films' element={<Films />} />
-          {/* <Route path='planets' element={<Planets />} /> */}
+          <Route path='/films/*' element={<Films />} />
+          {/* <Route path='/planets/*' element={<Planets />} /> */}
         </Routes>
       </div>
     </BrowserRouter>
