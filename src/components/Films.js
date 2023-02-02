@@ -23,7 +23,7 @@ const ConditionalFilm = function (props) {
     }
 }
 
-export function Films() {
+export default function Films() {
     const [films, setFilms] = useState([]);
     const [selected, setSelected] = useState(null);
     const url = `https://swapi.dev/api/films/`;
