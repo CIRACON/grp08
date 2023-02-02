@@ -35,9 +35,9 @@ export default function Films() {
     return (
         <>
             <h1>Star Wars Films</h1>
-            {films.map((film, key) => <Link key={key} to='1'>{film.title}</Link>)}
+            {films.map((film, key) => <Link key={key} to={`${key + 1}`}>{film.title}</Link>)}
             <Routes>
-                {films.map((film, key) => <Route key={key} path='1' element={<Film film={film} />} />)}
+                {films.map((film, key) => <Route key={key} path={`${key + 1}`} element={<Film film={film} />} />)}
             </Routes>
         </>
     );
