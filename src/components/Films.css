@@ -1,0 +1,11 @@
+.selected {
+    font-weight: bold;
+}
+
+ul {
+    list-style-type: none;
+}
+
+.filmInfo span {
+    display: block;
+}
