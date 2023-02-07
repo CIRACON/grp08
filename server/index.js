@@ -38,14 +38,18 @@ app.get("/films", async (req, res) => {
 });
 
 app.get("/planets", async (req, res) => {
-    const films = await Film.find({});
+    const planets = await Planet.find({});
 
     try {
-        res.send(films);
+        res.send(planets);
     } catch (error) {
         res.status(500).send(error);
     }
 });
+
+app.get("films/:id", async (req, res) => {
+    const film = await Film.find({})
+})
 
 
 // app.get("/films", (req, res) => {
