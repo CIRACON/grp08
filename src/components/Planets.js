@@ -1,51 +1,35 @@
 import React, { useState, useEffect } from 'react';
 
-// This initializes the planets
 const Planets = () => {
   const [planets, setPlanets] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [nextPage, setNextPage] = useState('');
   const [selectedPlanet, setSelectedPlanet] = useState(null);
 
   useEffect(() => {
-    fetchPlanets();
+    const url = "https://swapi.dev/api/planets/";
+    fetch(url)
+    .then(res=>res.json())
+    .then(res=>res.results)
+    .then(planets=>setPlanets(planets))
+
   }, []);
-//   This gets the data
-  const fetchPlanets = async (url = 'https://swapi.dev/api/planets/') => {
-    setLoading(true);
-    const res = await fetch(url);
-    const data = await res.json();
-    setPlanets([...planets, ...data.results]);
-    setNextPage(data.next);
-    setLoading(false);
-  };
-//   This gets the plantes data
+
   const handleClick = planet => {
     setSelectedPlanet(planet);
   };
+
   return (
     <div style={{ fontFamily: 'Georgia, sans-serif', textAlign: 'center' }}>
       <div>
         <h2>Star Wars Planets</h2>
         <h3>Select a Planet</h3>
-        {/* This selects a planet to view */}
+        <ul>
           {planets.map(planet => (
             <li key={planet.name} onClick={() => handleClick(planet)}>
               {planet.name}
             </li>
           ))}
-          {/* This loads more planets */}
-        {loading ? (
-          <p>Loading Planets...</p>
-        ) : (
-          <div style={{ textAlign: 'center', marginTop: '10px' }}>
-            <button disabled={!nextPage} onClick={() => fetchPlanets(nextPage)}>
-              Click to Load More Planets
-            </button>
-          </div>
-        )}
+        </ul>
       </div>
-      {/* This is all the planets Information */}
       {selectedPlanet && (
         <div style={{ marginTop: '30px' }}>
           <h2>{selectedPlanet.name} Planet Information</h2>
