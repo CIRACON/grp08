@@ -15,7 +15,7 @@ function App() {
         </nav>
         <Routes>
           <Route path='/films/*' element={<Films />} />
-          {/* <Route path='/planets/*' element={<Planets />} /> */}
+          <Route path='/planets/*' element={<Planets />} />
         </Routes>
       </div>
     </BrowserRouter>

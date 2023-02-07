@@ -33,6 +33,16 @@ app.get("/films", async (req, res) => {
     }
 });
 
+app.get("/planets", async (req, res) => {
+    const films = await Film.find({});
+
+    try {
+        res.send(films);
+    } catch (error) {
+        res.status(500).send(error);
+    }
+});
+
 
 // app.get("/films", (req, res) => {
 //     // console.log("I saw a request");
