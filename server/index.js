@@ -47,9 +47,9 @@ app.get("/planets", async (req, res) => {
     }
 });
 
-app.get("films/:id", async (req, res) => {
-    const film = await Film.find({})
-})
+// app.get("films/:id", async (req, res) => {
+//     const film = await Film.find({})
+// })
 
 
 // app.get("/films", (req, res) => {
