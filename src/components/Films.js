@@ -1,44 +1,23 @@
 
 import React, { useState, useEffect } from 'react';
 import './Films.css';
-
-const Film = function (props) {
-    return (
-        <>
-            <h2>{props.selected.title}</h2>
-            <div className='filmInfo'>
-                <span>Director: {props.selected.director}</span>
-                <span>Release Date: {props.selected.release_date}</span>
-            </div>
-        </>
-    )
-}
-
-const ConditionalFilm = function (props) {
-    if (props.selected === null) {
-        return <></>;
-    }
-    else {
-        return <Film selected={props.selected} />;
-    }
-}
+import Film from './Film.js'
+import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 
 export default function Films() {
     const [films, setFilms] = useState([]);
     const [selected, setSelected] = useState(null);
     const url = `https://swapi.dev/api/films/`;
+    // const url = "http://localhost:27017/films";
 
     async function fetchFilms() {
         let films = await fetch(url)
             .then(res => res.json())
             .then(res => res.results);
+        console.log(films);
         setFilms(films);
-        //console.log(films[0])
     }
 
-    const isSelected = function (film) {
-        return (selected != null && selected === film);
-    }
 
     useEffect(() => {
         fetchFilms();
@@ -47,14 +26,10 @@ export default function Films() {
     return (
         <>
             <h1>Star Wars Films</h1>
-            <ul>
-                {films.map((film, key) => <li key={key}
-                    onClick={() => setSelected(film)}
-                    className={isSelected(film) ? 'selected' : ''}>{JSON.stringify(film.title)}</li>)}
-            </ul>
-            {/* <pre>{JSON.stringify(films[0])}</pre> */}
-            <br />
-            <ConditionalFilm selected={selected} />
+            {films.map((film, key) => <Link key={key} to={`${key + 1}`}>{film.title}</Link>)}
+            <Routes>
+                {films.map((film, key) => <Route key={key} path={`${key + 1}`} element={<Film film={film} />} />)}
+            </Routes>
         </>
     );
 }
