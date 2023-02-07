@@ -1,12 +1,14 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const cors = require("cors");
 const app = express();
 app.use(express.json());
+app.use(cors());
 
 const mongodb = require("mongodb"); // mongo client library
 const url = "mongodb://localhost:27017/swapi";
-const dbName = 'swapi';
-let dbPool; // database connection
+// const dbName = 'swapi';
+// let dbPool; // database connection
 
 mongoose.connect(url,
     {
@@ -21,7 +23,9 @@ db.once("open", function () {
 });
 
 const Schema = new mongoose.Schema({});
-const Film = mongoose.model("Film", Schema);
+const Film = mongoose.model("films", Schema);
+const Planet = mongoose.model("planets", Schema);
+
 
 app.get("/films", async (req, res) => {
     const films = await Film.find({});

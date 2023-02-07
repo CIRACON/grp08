@@ -4,17 +4,18 @@ import './Films.css';
 import Film from './Film.js'
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 
-export default function Films() {
+ export default function Films() {
     const [films, setFilms] = useState([]);
     const [selected, setSelected] = useState(null);
-    const url = `https://swapi.dev/api/films/`;
-    // const url = "http://localhost:27017/films";
+    // const url = `https://swapi.dev/api/films/`;
+    const url = "http://localhost:8081/films";
 
     async function fetchFilms() {
         let films = await fetch(url)
             .then(res => res.json())
-            .then(res => res.results);
-        console.log(films);
+            // .then(res => console.log(res))
+            // .then(res => res.fields);
+        // console.log(films);
         setFilms(films);
     }
 
@@ -26,9 +27,9 @@ export default function Films() {
     return (
         <>
             <h1>Star Wars Films</h1>
-            {films.map((film, key) => <Link key={key} to={`${key + 1}`}>{film.title}</Link>)}
+            {films.map((film, key) => <Link key={key} to={`${key + 1}`}>{film.fields.title}</Link>)}
             <Routes>
-                {films.map((film, key) => <Route key={key} path={`${key + 1}`} element={<Film film={film} />} />)}
+                {films.map((film, key) => <Route key={key} path={`${key + 1}`} element={<Film film={film.fields} />} />)}
             </Routes>
         </>
     );
